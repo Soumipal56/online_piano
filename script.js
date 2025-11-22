@@ -78,19 +78,23 @@ document.querySelector('.piano').innerHTML = sum;
 
 let piano = document.querySelector('.piano');
 
-piano.addEventListener('click', function(e){
+piano.addEventListener('click', function (e) {
+
+  // get the id of whatever key was clicked
   const id = e.target.id;
   console.log(id);
 
+  // find the matching piano key object
   const key = pianoKeys.find(k => k.note1 === id || k.note2 === id);
 
+  // if no match, stop
   if (!key) return console.log("error");
 
-  if (key.note1 === id) {
-    key.audio1.currentTime = 0;
-    key.audio1.play();
-  } else if (key.note2 === id) {
-    key.audio2.currentTime = 0;
-    key.audio2.play();
-  }
-})
+  // choose correct audio
+  const sound = (key.note1 === id) ? key.audio1 : key.audio2;
+
+  // play audio
+  sound.currentTime = 0;
+  sound.play();
+});
+
